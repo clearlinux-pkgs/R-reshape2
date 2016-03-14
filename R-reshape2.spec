@@ -4,7 +4,7 @@
 #
 Name     : R-reshape2
 Version  : 1.4.1
-Release  : 18
+Release  : 19
 URL      : http://cran.r-project.org/src/contrib/reshape2_1.4.1.tar.gz
 Source0  : http://cran.r-project.org/src/contrib/reshape2_1.4.1.tar.gz
 Summary  : No detailed summary available
