@@ -4,25 +4,32 @@
 #
 Name     : R-reshape2
 Version  : 1.4.1
-Release  : 25
+Release  : 26
 URL      : http://cran.r-project.org/src/contrib/reshape2_1.4.1.tar.gz
 Source0  : http://cran.r-project.org/src/contrib/reshape2_1.4.1.tar.gz
-Summary  : No detailed summary available
+Summary  : Flexibly Reshape Data: A Reboot of the Reshape Package.
 Group    : Development/Tools
 License  : MIT
+Requires: R-reshape2-lib
 Requires: R-Rcpp
 Requires: R-plyr
 Requires: R-stringr
-Requires: R-testthat
 BuildRequires : R-Rcpp
 BuildRequires : R-plyr
 BuildRequires : R-stringr
-BuildRequires : R-testthat
 BuildRequires : clr-R-helpers
 
 %description
 # Reshape2
 [![Build Status](https://travis-ci.org/hadley/reshape.png)](https://travis-ci.org/hadley/reshape)
+
+%package lib
+Summary: lib components for the R-reshape2 package.
+Group: Libraries
+
+%description lib
+lib components for the R-reshape2 package.
+
 
 %prep
 %setup -q -c -n reshape2
@@ -32,12 +39,23 @@ BuildRequires : clr-R-helpers
 %install
 rm -rf %{buildroot}
 export LANG=C
+export CFLAGS="$CFLAGS -O3 -flto -fno-semantic-interposition "
+export FCFLAGS="$CFLAGS -O3 -flto -fno-semantic-interposition "
+export FFLAGS="$CFLAGS -O3 -flto -fno-semantic-interposition "
+export CXXFLAGS="$CXXFLAGS -O3 -flto -fno-semantic-interposition "
+export AR=gcc-ar
+export RANLIB=gcc-ranlib
+export LDFLAGS="$LDFLAGS  -Wl,-z -Wl,relro"
 mkdir -p %{buildroot}/usr/lib64/R/library
 R CMD INSTALL --install-tests --build  -l %{buildroot}/usr/lib64/R/library reshape2
 %{__rm} -rf %{buildroot}%{_datadir}/R/library/R.css
 %check
+export LANG=C
+export http_proxy=http://127.0.0.1:9/
+export https_proxy=http://127.0.0.1:9/
+export no_proxy=localhost
 export _R_CHECK_FORCE_SUGGESTS_=false
-R CMD check --no-manual --no-codoc -l %{buildroot}/usr/lib64/R/library reshape2
+R CMD check --no-manual --no-examples --no-codoc -l %{buildroot}/usr/lib64/R/library reshape2
 
 
 %files
@@ -66,5 +84,8 @@ R CMD check --no-manual --no-codoc -l %{buildroot}/usr/lib64/R/library reshape2
 /usr/lib64/R/library/reshape2/help/reshape2.rdx
 /usr/lib64/R/library/reshape2/html/00Index.html
 /usr/lib64/R/library/reshape2/html/R.css
-/usr/lib64/R/library/reshape2/libs/reshape2.so
 /usr/lib64/R/library/reshape2/libs/symbols.rds
+
+%files lib
+%defattr(-,root,root,-)
+/usr/lib64/R/library/reshape2/libs/reshape2.so
