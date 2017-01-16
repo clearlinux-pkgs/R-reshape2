@@ -4,7 +4,7 @@
 #
 Name     : R-reshape2
 Version  : 1.4.2
-Release  : 30
+Release  : 31
 URL      : http://cran.r-project.org/src/contrib/reshape2_1.4.2.tar.gz
 Source0  : http://cran.r-project.org/src/contrib/reshape2_1.4.2.tar.gz
 Summary  : Flexibly Reshape Data: A Reboot of the Reshape Package
@@ -34,9 +34,11 @@ lib components for the R-reshape2 package.
 
 %build
 export LANG=C
+export SOURCE_DATE_EPOCH=1484547633
 
 %install
 rm -rf %{buildroot}
+export SOURCE_DATE_EPOCH=1484547633
 export LANG=C
 export CFLAGS="$CFLAGS -O3 -flto -fno-semantic-interposition "
 export FCFLAGS="$CFLAGS -O3 -flto -fno-semantic-interposition "
@@ -46,7 +48,7 @@ export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export LDFLAGS="$LDFLAGS  -Wl,-z -Wl,relro"
 mkdir -p %{buildroot}/usr/lib64/R/library
-R CMD INSTALL --install-tests --build  -l %{buildroot}/usr/lib64/R/library reshape2
+R CMD INSTALL --install-tests --built-timestamp=${SOURCE_DATE_EPOCH} --build  -l %{buildroot}/usr/lib64/R/library reshape2
 %{__rm} -rf %{buildroot}%{_datadir}/R/library/R.css
 %check
 export LANG=C
