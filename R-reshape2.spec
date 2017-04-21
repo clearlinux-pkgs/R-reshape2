@@ -4,7 +4,7 @@
 #
 Name     : R-reshape2
 Version  : 1.4.2
-Release  : 34
+Release  : 35
 URL      : http://cran.r-project.org/src/contrib/reshape2_1.4.2.tar.gz
 Source0  : http://cran.r-project.org/src/contrib/reshape2_1.4.2.tar.gz
 Summary  : Flexibly Reshape Data: A Reboot of the Reshape Package
@@ -33,12 +33,15 @@ lib components for the R-reshape2 package.
 %setup -q -c -n reshape2
 
 %build
+export http_proxy=http://127.0.0.1:9/
+export https_proxy=http://127.0.0.1:9/
+export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1484547633
+export SOURCE_DATE_EPOCH=1492801449
 
 %install
 rm -rf %{buildroot}
-export SOURCE_DATE_EPOCH=1484547633
+export SOURCE_DATE_EPOCH=1492801449
 export LANG=C
 export CFLAGS="$CFLAGS -O3 -flto -fno-semantic-interposition "
 export FCFLAGS="$CFLAGS -O3 -flto -fno-semantic-interposition "
@@ -54,7 +57,7 @@ R CMD INSTALL --install-tests --built-timestamp=${SOURCE_DATE_EPOCH} --build  -l
 export LANG=C
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
-export no_proxy=localhost
+export no_proxy=localhost,127.0.0.1,0.0.0.0
 export _R_CHECK_FORCE_SUGGESTS_=false
 R CMD check --no-manual --no-examples --no-codoc -l %{buildroot}/usr/lib64/R/library reshape2
 
@@ -67,6 +70,7 @@ R CMD check --no-manual --no-examples --no-codoc -l %{buildroot}/usr/lib64/R/lib
 /usr/lib64/R/library/reshape2/LICENSE
 /usr/lib64/R/library/reshape2/Meta/Rd.rds
 /usr/lib64/R/library/reshape2/Meta/data.rds
+/usr/lib64/R/library/reshape2/Meta/features.rds
 /usr/lib64/R/library/reshape2/Meta/hsearch.rds
 /usr/lib64/R/library/reshape2/Meta/links.rds
 /usr/lib64/R/library/reshape2/Meta/nsInfo.rds
