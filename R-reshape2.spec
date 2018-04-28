@@ -4,7 +4,7 @@
 #
 Name     : R-reshape2
 Version  : 1.4.3
-Release  : 50
+Release  : 51
 URL      : https://cran.r-project.org/src/contrib/reshape2_1.4.3.tar.gz
 Source0  : https://cran.r-project.org/src/contrib/reshape2_1.4.3.tar.gz
 Summary  : Flexibly Reshape Data: A Reboot of the Reshape Package
