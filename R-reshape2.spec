@@ -4,18 +4,24 @@
 #
 Name     : R-reshape2
 Version  : 1.4.3
-Release  : 58
+Release  : 59
 URL      : https://cran.r-project.org/src/contrib/reshape2_1.4.3.tar.gz
 Source0  : https://cran.r-project.org/src/contrib/reshape2_1.4.3.tar.gz
 Summary  : Flexibly Reshape Data: A Reboot of the Reshape Package
 Group    : Development/Tools
 License  : MIT
-Requires: R-reshape2-lib
+Requires: R-reshape2-lib = %{version}-%{release}
 Requires: R-Rcpp
+Requires: R-assertthat
+Requires: R-cli
 Requires: R-plyr
+Requires: R-withr
 BuildRequires : R-Rcpp
+BuildRequires : R-assertthat
+BuildRequires : R-cli
 BuildRequires : R-plyr
-BuildRequires : clr-R-helpers
+BuildRequires : R-withr
+BuildRequires : buildreq-R
 
 %description
 # reshape2
@@ -38,11 +44,11 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1513084801
+export SOURCE_DATE_EPOCH=1552844585
 
 %install
+export SOURCE_DATE_EPOCH=1552844585
 rm -rf %{buildroot}
-export SOURCE_DATE_EPOCH=1513084801
 export LANG=C
 export CFLAGS="$CFLAGS -O3 -flto -fno-semantic-interposition "
 export FCFLAGS="$CFLAGS -O3 -flto -fno-semantic-interposition "
@@ -60,6 +66,11 @@ echo "FFLAGS = $FFLAGS -march=haswell -ftree-vectorize " >> ~/.R/Makevars
 echo "CXXFLAGS = $CXXFLAGS -march=haswell -ftree-vectorize " >> ~/.R/Makevars
 R CMD INSTALL --install-tests --built-timestamp=${SOURCE_DATE_EPOCH} --build  -l %{buildroot}/usr/lib64/R/library reshape2
 for i in `find %{buildroot}/usr/lib64/R/ -name "*.so"`; do mv $i $i.avx2 ; mv $i.avx2 ~/.stash/; done
+echo "CFLAGS = $CFLAGS -march=skylake-avx512 -ftree-vectorize " > ~/.R/Makevars
+echo "FFLAGS = $FFLAGS -march=skylake-avx512 -ftree-vectorize " >> ~/.R/Makevars
+echo "CXXFLAGS = $CXXFLAGS -march=skylake-avx512 -ftree-vectorize " >> ~/.R/Makevars
+R CMD INSTALL --preclean --install-tests --no-test-load --built-timestamp=${SOURCE_DATE_EPOCH} --build  -l %{buildroot}/usr/lib64/R/library reshape2
+for i in `find %{buildroot}/usr/lib64/R/ -name "*.so"`; do mv $i $i.avx512 ; mv $i.avx512 ~/.stash/; done
 echo "CFLAGS = $CFLAGS -ftree-vectorize " > ~/.R/Makevars
 echo "FFLAGS = $FFLAGS -ftree-vectorize " >> ~/.R/Makevars
 echo "CXXFLAGS = $CXXFLAGS -ftree-vectorize " >> ~/.R/Makevars
@@ -72,8 +83,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export _R_CHECK_FORCE_SUGGESTS_=false
-R CMD check --no-manual --no-examples --no-codoc -l %{buildroot}/usr/lib64/R/library reshape2|| : 
-cp ~/.stash/* %{buildroot}/usr/lib64/R/library/*/libs/ || :
+R CMD check --no-manual --no-examples --no-codoc  reshape2 || :
 
 
 %files
@@ -104,9 +114,13 @@ cp ~/.stash/* %{buildroot}/usr/lib64/R/library/*/libs/ || :
 /usr/lib64/R/library/reshape2/help/reshape2.rdx
 /usr/lib64/R/library/reshape2/html/00Index.html
 /usr/lib64/R/library/reshape2/html/R.css
-/usr/lib64/R/library/reshape2/libs/symbols.rds
+/usr/lib64/R/library/reshape2/tests/testthat.R
+/usr/lib64/R/library/reshape2/tests/testthat/test-cast.r
+/usr/lib64/R/library/reshape2/tests/testthat/test-margins.r
+/usr/lib64/R/library/reshape2/tests/testthat/test-melt.r
 
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/R/library/reshape2/libs/reshape2.so
 /usr/lib64/R/library/reshape2/libs/reshape2.so.avx2
+/usr/lib64/R/library/reshape2/libs/reshape2.so.avx512
