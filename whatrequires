@@ -1,1 +1,11 @@
 # This file contains recursive sources that require this package
+R-Cubist
+R-NMF
+R-RNeXML
+R-afex
+R-bayesplot
+R-broom
+R-ggplot2
+R-robustbase
+R-shinystan
+R-taxize

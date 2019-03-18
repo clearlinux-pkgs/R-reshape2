@@ -4,18 +4,13 @@
 #
 Name     : R-reshape2
 Version  : 1.4.3
-Release  : 59
+Release  : 60
 URL      : https://cran.r-project.org/src/contrib/reshape2_1.4.3.tar.gz
 Source0  : https://cran.r-project.org/src/contrib/reshape2_1.4.3.tar.gz
 Summary  : Flexibly Reshape Data: A Reboot of the Reshape Package
 Group    : Development/Tools
 License  : MIT
 Requires: R-reshape2-lib = %{version}-%{release}
-Requires: R-Rcpp
-Requires: R-assertthat
-Requires: R-cli
-Requires: R-plyr
-Requires: R-withr
 BuildRequires : R-Rcpp
 BuildRequires : R-assertthat
 BuildRequires : R-cli
@@ -44,10 +39,10 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1552844585
+export SOURCE_DATE_EPOCH=1552868004
 
 %install
-export SOURCE_DATE_EPOCH=1552844585
+export SOURCE_DATE_EPOCH=1552868004
 rm -rf %{buildroot}
 export LANG=C
 export CFLAGS="$CFLAGS -O3 -flto -fno-semantic-interposition "
