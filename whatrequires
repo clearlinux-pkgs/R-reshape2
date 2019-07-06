@@ -2,10 +2,13 @@
 R-Cubist
 R-NMF
 R-RNeXML
+R-adegenet
 R-afex
 R-bayesplot
 R-broom
+R-caret
 R-ggplot2
-R-robustbase
+R-phylobase
+R-rstanarm
 R-shinystan
 R-taxize

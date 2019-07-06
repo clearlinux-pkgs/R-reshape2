@@ -3,4 +3,5 @@ R-Rcpp
 R-assertthat
 R-cli
 R-plyr
+R-stringi
 R-withr
