@@ -9,6 +9,5 @@ R-broom
 R-caret
 R-ggplot2
 R-phylobase
-R-rstanarm
 R-shinystan
 R-taxize
