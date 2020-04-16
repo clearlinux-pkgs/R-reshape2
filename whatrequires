@@ -7,7 +7,6 @@ R-afex
 R-bayesplot
 R-broom
 R-caret
-R-ggplot2
-R-phylobase
+R-robCompositions
+R-robustbase
 R-shinystan
-R-taxize
