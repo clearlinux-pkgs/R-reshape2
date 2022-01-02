@@ -1,11 +1,11 @@
 # This file contains recursive sources that require this package
 R-Cubist
+R-Lahman
 R-NMF
 R-RNeXML
 R-adegenet
 R-afex
 R-bayesplot
-R-broom
 R-caret
 R-robCompositions
 R-robustbase
