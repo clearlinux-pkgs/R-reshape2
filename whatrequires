@@ -1,6 +1,5 @@
 # This file contains recursive sources that require this package
 R-Cubist
-R-Lahman
 R-NMF
 R-RNeXML
 R-adegenet
@@ -8,5 +7,4 @@ R-afex
 R-bayesplot
 R-caret
 R-robCompositions
-R-robustbase
 R-shinystan
